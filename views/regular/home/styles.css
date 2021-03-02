@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+@import "../../../styles/global.css";
+@import "../../../components/navbar/styles.css";
+@import "../../../components/footer/styles.css";
+
+/* Mensaje de Bienvenida */
+
+#welcome{
+  font-size: 18px;
+  padding: 10px auto;
+  margin-bottom: 10px;
+}
+
+#welcome span:nth-of-type(1){
+  color: #005288;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+#welcome span:nth-of-type(2){
+    font-weight: 700;
+}
+
+/* Cuerpo de la Página */
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - 212px);
+}
+
+#main-title{
+    font-size: 35px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    color: #005288;
+}
+
+#main-title::after{
+    background-color: #A7A9AC;
+    position: relative;
+    display: block;
+    content: "";
+    height: 2px;
+    margin: 20px auto;
+}
+
+table{
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    background-color: #A7A9AC;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-bottom: 75px;
+}
+
+th{
+    border: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+td{
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    padding: 8px;
+    line-height: 1.5;
+    text-align: left;
+    vertical-align: top;
+}
+
+.info{
+    border-top: 0;
+    background-color: #005288;
+    border-bottom-width: 2px;
+    vertical-align: bottom;
+    padding: 8px;
+    line-height: 1.5;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.warning{
+    background-color: #ffe76e;
+    text-align: center;
+    text-decoration: none;
+}
+
+.danger{
+    background-color: #ff6e6e;
+    text-align: center;
+}
+
+.warning a, .danger a{
+    text-decoration: none;
+    color: #005288;
+}
+
+.warning a:hover, .danger a:hover{
+    text-decoration: underline;
+    outline: 0;
+    color: var(--yale-blue);
+}
