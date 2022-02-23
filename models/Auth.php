@@ -10,70 +10,64 @@
     public function __construct() {
       parent::__construct();
 
-      $this->user = limpiar(filter_input(INPUT_POST, "usuario"));
-      $this->pass = limpiar(filter_input(INPUT_POST, "pass"));
+      $this->user = limpiar(filter_input(INPUT_POST, 'usuario'));
+      $this->pass = limpiar(filter_input(INPUT_POST, 'pass'));
     }
 
     private function comprobarUsuario() {
-      $query = "SELECT * FROM users WHERE username = :username";
+      $query = 'SELECT * FROM users WHERE username = :username';
 
-      $resultado = $this->conexionBD->prepare($query);
+      $result = $this->conexionBD->prepare($query);
 
-      $resultado->execute(array(":username"=>$this->user));
+      $result->execute(array(':username'=>$this->user));
 
-      return $resultado->rowCount();
+      return $result->rowCount();
     }
 
-    private function comprobarContraseña() {
-      $query = "SELECT * FROM users WHERE username = :username";
+    private function comprobaroContraseña() {
+      $query = 'SELECT * FROM users WHERE username = :username';
 
-      $resultado = $this->conexionBD->prepare($query);
+      $result = $this->conexionBD->prepare($query);
 
-      $resultado->execute(array(":username"=>$this->user));
+      $result->execute(array(':username'=>$this->user));
 
-      $password = $resultado->fetch();
+      $user = $result->fetch();
 
-      $pass_tmp = $password['pass'];
+      $password = $user['pass'];
 
-      return password_verify($this->pass,$pass_tmp);
-
+      return password_verify($this->pass, $password);
     }
 
     public function login() {
-      return ($this->comprobarUsuario() != 0 && $this->comprobarContraseña());
+      return ($this->comprobarUsuario() != 0 && $this->comprobaroContraseña());
     }
 
-    public function getUsuario(){
-
+    public function getUsuario() {
       return $this->user;
-
     }
 
-    public function getAccountId(){
+    public function getAccountId() {
+      $query = 'SELECT * FROM users WHERE username = :username';
 
-      $query = "SELECT * FROM users WHERE username = :username";
+      $result = $this->conexionBD->prepare($query);
 
-      $resultado = $this->conexionBD->prepare($query);
+      $result->execute(array(':username'=>$this->user));
 
-      $resultado->execute(array(":username"=>$this->user));
+      $user = $result->fetch();
 
-      $usuario = $resultado->fetch();
-
-      return $usuario['account_id'];
-
+      return $user['account_id'];
     }
 
-    public function getRole(){
+    public function getRole() {
+      $query = 'SELECT * FROM users WHERE username = :username';
 
-      $query = "SELECT * FROM users WHERE username = :username";
+      $result = $this->conexionBD->prepare($query);
 
-      $resultado = $this->conexionBD->prepare($query);
+      $result->execute(array(':username'=>$this->user));
 
-      $resultado->execute(array(":username"=>$this->user));
+      $user = $result->fetch();
 
-      $usuario = $resultado->fetch();
-
-      return $usuario['role'];
-
+      return $user['role'];
     }
+
   }

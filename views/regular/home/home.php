@@ -10,7 +10,7 @@
   require_once('../../../models/Launch.php');
   $consulta = new Launch();
 
-  $lanzamientos = $consulta->read();
+  $lanzamientos = $consulta->readAll();
 ?>
 <!DOCTYPE html>
 <html lang="es">

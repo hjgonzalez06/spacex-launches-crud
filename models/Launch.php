@@ -1,5 +1,6 @@
 <?php
-  require_once($_SERVER['DOCUMENT_ROOT'].'config/conexion.php');
+
+  require_once($_SERVER['DOCUMENT_ROOT'].'/spacex-launches-crud/config/conexion.php');
 
   class Launch extends Conexion {
 
@@ -8,63 +9,53 @@
     }
 
     public function create($mision, $año_lanzamiento, $cohete, $lugar_lanzamiento) {
-      $query = "INSERT INTO launches (mission_name,launch_year,rocket_name,launch_site)
-                VALUES (:mission_name,:launch_year,:rocket_name,:launch_site)";
+      $query = 'INSERT INTO launches (mission_name, launch_year, rocket_name, launch_site) VALUES (:mission_name, :launch_year, :rocket_name, :launch_site)';
 
-      $resultado = $this->conexionBD->prepare($query);
-      $resultado->execute(array(":mission_name"=>$mision, ":launch_year"=>$año_lanzamiento,
-                                ":rocket_name"=>$cohete, ":launch_site"=>$lugar_lanzamiento));
-      
-      return header("location: ../views/admin/home/home.php?succes=true");
+      $result = $this->conexionBD->prepare($query);
+
+      $result->execute(array(':mission_name'=>$mision, ':launch_year'=>$año_lanzamiento, ':rocket_name'=>$cohete, ':launch_site'=>$lugar_lanzamiento));
+
+      header('location: ../views/admin/home/home.php');
     }
 
-    public function read($numero_vuelo = ""){
+    public function readAll() {
+      $query = 'SELECT * FROM launches';
 
-      if($numero_vuelo != ""){
-        $query = "SELECT * FROM launches WHERE flight_number = :flight_number";
+      $result = $this->conexionBD->prepare($query);
 
-        $resultado = $this->conexionBD->prepare($query);
+      $result->execute();
 
-        $resultado->execute(array(":flight_number"=>$numero_vuelo));
-
-        return $resultado->fetch();
-      }
-
-      $query = "SELECT * FROM launches";
-
-      $resultado = $this->conexionBD->prepare($query);
-
-      $resultado->execute();
-
-      return $resultado->fetchAll();
-
+      return $result->fetchAll();
     }
 
-    public function update($numero_vuelo, $mision, $año_lanzamiento, $cohete, $lugar_lanzamiento){
+    public function readById($numero_vuelo) {
+      $query = 'SELECT * FROM launches WHERE flight_number = :flight_number';
 
-      $query = "UPDATE launches SET mission_name = :mission_name, launch_year = :launch_year,
-                rocket_name = :rocket_name, launch_site = :launch_site WHERE flight_number = :flight_number";
+      $result = $this->conexionBD->prepare($query);
 
-      $resultado = $this->conexionBD->prepare($query);
+      $result->execute(array(':flight_number'=>$numero_vuelo));
 
-      $resultado->execute(array(":mission_name"=>$mision, ":launch_year"=>$año_lanzamiento,
-                                ":rocket_name"=>$cohete, ":launch_site"=>$lugar_lanzamiento,
-                                ":flight_number" => $numero_vuelo));
-
-      return header("location: ../views/admin/home/home.php?succes=true");
-
+      return $result->fetch();
     }
 
-    public function delete($numero_vuelo){
+    public function update($numero_vuelo, $mision, $año_lanzamiento, $cohete, $lugar_lanzamiento) {
+      $query = 'UPDATE launches SET mission_name = :mission_name, launch_year = :launch_year, rocket_name = :rocket_name, launch_site = :launch_site WHERE flight_number = :flight_number';
+    
+      $result = $this->conexionBD->prepare($query);
 
-        $query = "DELETE FROM launches WHERE flight_number = :flight_number";
+      $result->execute(array(':mission_name'=>$mision, ':launch_year'=>$año_lanzamiento, ':rocket_name'=>$cohete, ':launch_site'=>$lugar_lanzamiento, ':flight_number'=>$numero_vuelo));
+    
+      header('location: ../views/admin/home/home.php');
+    }
 
-        $resultado = $this->conexionBD->prepare($query);
+    public function delete($numero_vuelo) {
+      $query = 'DELETE FROM launches WHERE flight_number = :flight_number';
 
-        $resultado->execute(array(":flight_number"=>$numero_vuelo));
+      $result = $this->conexionBD->prepare($query);
 
-        return header('location: ../views/admin/home/home.php?succes=true');
+      $result->execute(array(':flight_number'=>$numero_vuelo));
 
+      header('location: ../views/admin/home/home.php');
     }
 
   }

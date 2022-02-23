@@ -10,7 +10,7 @@
   require_once('../../../models/User.php');
   $consulta = new User();
 
-  $usuarios = $consulta->read();
+  $usuarios = $consulta->readAll();
 ?>
 <!DOCTYPE html>
 <html lang="es">
