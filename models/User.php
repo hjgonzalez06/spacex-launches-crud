@@ -1,5 +1,5 @@
 <?php
-  require_once($_SERVER['DOCUMENT_ROOT'].'config/conexion.php');
+  require_once($_SERVER['DOCUMENT_ROOT'].'/spacex-launches-crud/config/conexion.php');
 
   class User extends Conexion {
 
@@ -21,17 +21,7 @@
 
     }
 
-    public function read($id = ""){
-
-      if($id != ""){
-        $query = "SELECT * FROM users WHERE account_id = :account_id";
-
-        $resultado = $this->conexionBD->prepare($query);
-
-        $resultado->execute(array(":account_id"=>$id));
-
-        return $resultado->fetch();
-      }
+    public function readAll () {
 
       $query = "SELECT * FROM users";
 
@@ -40,6 +30,18 @@
       $resultado->execute();
 
       return $resultado->fetchAll();
+
+    }
+
+    public function readById ($id) {
+
+      $query = "SELECT * FROM users WHERE account_id = :account_id";
+
+      $resultado = $this->conexionBD->prepare($query);
+
+      $resultado->execute(array(":account_id"=>$id));
+
+      return $resultado->fetch();
 
     }
 
@@ -80,6 +82,5 @@
                                 ":address"=>$direccion,":account_id"=>$id));
 
       return header('location: ../views/regular/home/home.php?success=true');
-
-  }
+    }
   }

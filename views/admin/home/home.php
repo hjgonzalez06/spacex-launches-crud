@@ -3,14 +3,13 @@
 
   if (!isset($_SESSION['usuario']) || !isset($_SESSION['account_id'])) {
     header('location: ../../login/login.php');
-  }else if($_SESSION['role'] != 'administrador'){
+  } else if ($_SESSION['role'] != 'administrador') {
     header('location: ../../../utils/logout.php');
   }
 
   require_once('../../../models/Launch.php');
   $consulta = new Launch();
-
-  $lanzamientos = $consulta->read();
+  $launches = $consulta->readAll()
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -51,17 +50,16 @@
         </thead>
         <tbody>
           <?php
-            foreach($lanzamientos as $lanzamiento){
+            foreach ($launches as $launch) {
               echo '<tr>';
-                echo '<td>'.$lanzamiento['flight_number'].'</td>';
-                echo '<td>'.$lanzamiento['mission_name'].'</td>';
-                echo '<td>'.$lanzamiento['launch_year'].'</td>';
-                echo '<td>'.$lanzamiento['rocket_name'].'</td>';
-                echo '<td>'.$lanzamiento['launch_site'].'</td>';
-                echo '<td class="warning"><a href="../forms/updateLaunch.php?id='
-                      .$lanzamiento['flight_number'].'">Actualizar</a></td>';
-                echo '<td class="danger"><a href="../../../controllers/LaunchControllers.php?'
-                      .'action=delete&id='.$lanzamiento['flight_number'].'">Eliminar</a></td>';
+                echo '<td>'.$launch['flight_number'].'</td>';
+                echo '<td>'.$launch['mission_name'].'</td>';
+                echo '<td>'.$launch['launch_year'].'</td>';
+                echo '<td>'.$launch['rocket_name'].'</td>';
+                echo '<td>'.$launch['launch_site'].'</td>';
+                echo '<td class="warning"><a href="../forms/updateLaunch.php?id='.$launch['flight_number'].'">Actualizar</a></td>';
+                echo '<td class="danger"><a href="../../../controllers/LaunchControllers.php?action=delete&id='.$launch['flight_number'].'">Eliminar</a></td>';
+              echo '</tr>';
             }
           ?>
         </tbody>

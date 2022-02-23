@@ -10,7 +10,7 @@
   require_once('../../../models/User.php');
   $consulta = new User();
 
-  $usuario = $consulta->read($_SESSION['account_id']);
+  $usuario = $consulta->readById($_SESSION['account_id']);
 ?>
 <!DOCTYPE html>
 <html lang="es">

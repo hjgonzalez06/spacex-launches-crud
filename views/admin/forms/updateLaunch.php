@@ -10,7 +10,7 @@
   require_once('../../../models/Launch.php');
   $consulta = new Launch();
 
-  $lanzamiento = $consulta->read($_GET['id']);
+  $lanzamiento = $consulta->readById($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="es">

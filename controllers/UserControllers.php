@@ -35,6 +35,7 @@
       }else{
         header('location: ../views/admin/forms/createUser.php?unset=true');
       }
+      break;
     case "update":
       if(isset($_POST['id']) && isset($_POST['user']) && isset($_POST['fullname']) && isset($_POST['email'])
         && isset($_POST['address']) && isset($_POST['role'])){
@@ -59,6 +60,7 @@
       }else{
         header('location: ../views/admin/forms/updateUser.php?id='.$_POST['id'].'&unset=true');
       }
+      break;
     case "delete":
       if(isset($_GET['id'])){
 
@@ -72,26 +74,28 @@
       }else{
         header('location: ../views/admin/users/users.php?unset=true');
       }
-      case "updateRegular":
-        if(isset($_POST['id']) && isset($_POST['fullname']) && isset($_POST['email'])
-          && isset($_POST['address'])){
-  
-          if($_POST['id']!="" && $_POST['fullname']!="" && $_POST['email']!=""
-            && $_POST['address']!=""){
-              
-            $id = limpiar($_POST['id']);
-            $nombre = limpiar($_POST['fullname']);
-            $correo = limpiar($_POST['email']);
-            $direccion = limpiar($_POST['address']);
-  
-            $user = new User();
-  
-            $user->updateRegular($id,$nombre,$correo,$direccion);
-  
-          }else{
-            header('location: ../views/regular/account/account.php?id='.$_POST['id'].'&incomplete=true');
-          }
+      break;
+    case "updateRegular":
+      if(isset($_POST['id']) && isset($_POST['fullname']) && isset($_POST['email'])
+        && isset($_POST['address'])){
+
+        if($_POST['id']!="" && $_POST['fullname']!="" && $_POST['email']!=""
+          && $_POST['address']!=""){
+            
+          $id = limpiar($_POST['id']);
+          $nombre = limpiar($_POST['fullname']);
+          $correo = limpiar($_POST['email']);
+          $direccion = limpiar($_POST['address']);
+
+          $user = new User();
+
+          $user->updateRegular($id,$nombre,$correo,$direccion);
+
         }else{
-          header('location: ../views/regular/account/account.php?id='.$_POST['id'].'&unset=true');
-        }  
+          header('location: ../views/regular/account/account.php?id='.$_POST['id'].'&incomplete=true');
+        }
+      }else{
+        header('location: ../views/regular/account/account.php?id='.$_POST['id'].'&unset=true');
+      }
+    break;
   }

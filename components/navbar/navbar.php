@@ -1,6 +1,6 @@
 <header class="row">
   <figure id="logo" class="col-6">
-    <?php echo file_get_contents($_SERVER['DOCUMENT_ROOT'].'/assets/logos/SpaceX-Logo.svg'); ?>
+    <?php echo file_get_contents($_SERVER['DOCUMENT_ROOT'].'/spacex-launches-crud/assets/logos/SpaceX-Logo.svg'); ?>
   </figure>
   <nav id="navbar" class="col-6">
     <ul id="navbar-list">
